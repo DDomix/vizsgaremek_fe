@@ -1,6 +1,6 @@
 import { Component, ReactNode } from "react";
 
-import './loginstyle.css'
+import './css/loginstyle.css'
 
 export default class Login extends Component {
     render(): ReactNode {
@@ -14,7 +14,7 @@ export default class Login extends Component {
             <div className="user-box">
                 <input type="password" name="" required />
                 <label>Password</label>
-                <a className="link-btn" href="/public/register.html">  Register</a>
+                <a className="link-btn" href="/src/modulok/register.tsx">  Register</a>
             </div>
             <a href="#" className="asd">
             <span></span>

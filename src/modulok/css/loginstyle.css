@@ -70,6 +70,8 @@ body{
     font-size: 12px;
 }
 .login-box form .asd {
+    background: transparent;
+    border: none;
     position: relative;
     display: inline-block;
     padding: 12px 20px;

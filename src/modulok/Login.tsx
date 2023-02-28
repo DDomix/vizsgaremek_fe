@@ -1,4 +1,5 @@
 import { Component, ReactNode } from "react";
+import { Link, Route } from "react-router-dom";
 
 import './css/loginstyle.css'
 
@@ -14,15 +15,15 @@ export default class Login extends Component {
             <div className="user-box">
                 <input type="password" name="" required />
                 <label>Password</label>
-                <a className="link-btn" href="/src/modulok/register.tsx">  Register</a>
             </div>
-            <a href="#" className="asd">
+            <Link to='/register' className="link-btn">Register</Link>
+            <button className="asd">
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             Login
-            </a>
+            </button>
         </form>
     </div>
     }

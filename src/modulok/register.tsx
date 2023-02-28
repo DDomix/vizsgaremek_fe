@@ -9,7 +9,7 @@ interface State {
     email: string;
     password: string;
     passwordagain: string;
-    loginError: string;
+    Error: string;
 }
 interface Props {
     authToken: string;
@@ -25,7 +25,7 @@ export default class Register extends React.Component<Props, State> {
             email: '',
             password: '',
             passwordagain: '',
-            loginError: '',
+            Error: '',
         }
     }
 
@@ -45,6 +45,7 @@ export default class Register extends React.Component<Props, State> {
             'passwordagain': this.state.passwordagain,
         };
         
+        
         const response = await fetch('http://localhost:3000/api/users', {
             method: 'POST',
             headers: {
@@ -52,29 +53,37 @@ export default class Register extends React.Component<Props, State> {
             },
             body: JSON.stringify(registerData),
         });
+        const responseBody = await response.json();
+
         if (!response.ok) {
-            if (response.status === 401) {
-                this.setState({ loginError: 'Hibás név vagy jelszó' });
+
+            /*if (response.status === 401) {
+                window.alert("hibás név vagy jelszó");
             } else {
-                this.setState({ loginError: 'Szerver hiba' });
+                window.alert("szerver hiba");
+            }*/
+            if(response.status === 400) {
+                window.alert(responseBody.message)
+            }
+            else{
+                 window.alert("successful registration");
             }
             return;
         }
-        const responseBody = await response.json();
         localStorage.setItem('authToken', responseBody.token);
         this.setState({
             username: '',
             password: '',
-            loginError: '',
+            Error: '',
         })
         this.props.onAuthTokenChange(responseBody.token);
-
+        
     }
 
     render(): ReactNode {
 
         const { authToken } = this.props;
-        const { username, password,email,passwordagain, loginError } = this.state;
+        const { username, password,email,passwordagain, Error: loginError } = this.state;
         
         return <div>
             <div className="login-box">

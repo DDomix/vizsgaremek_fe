@@ -7,7 +7,7 @@ import './css/mainsite.css';
 
 export default class MainSite extends Component {
     render(): ReactNode {
-        return <div>
+        return <div className="mainsite">
             <section className="wrapper">
                 <div className="container">
                     <div className="row">

@@ -21,11 +21,6 @@ body {
     background-position: center center;
   }
   
-  
-  .wrapper {
-    margin: 10vh;
-  }
-  
   .card {
     border: none;
     transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);

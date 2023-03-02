@@ -3,7 +3,9 @@ body {
     background-size: cover; 
     background-position: middle center;
     background-repeat: no-repeat;
-    background-attachment: fixed; 
+    background-attachment: fixed;
+    min-height: 100vh;
+     
   }
   #car-parts{
     background-image: url('/src/images/image.jpg');
@@ -21,17 +23,20 @@ body {
     background-position: center center;
   }
   
-  .wrapper {
-    margin: 10vh;
+  .container{
+    
+    min-width: fit-content;
+    min-height: fit-content;
   }
-  
+
   .card {
     border: none;
     transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
     overflow: hidden;
     border-radius: 20px;
-    min-height: 450px;
+    min-height :450px;
     box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.2);
+    
   }
   @media (max-width: 768px) {
     .card {

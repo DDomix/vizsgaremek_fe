@@ -1,11 +1,10 @@
-body {
+.mainsite {
     background-image: url('/src/images/carbackground.jpg');
     background-size: cover; 
     background-position: middle center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
-     
   }
   #car-parts{
     background-image: url('/src/images/image.jpg');
@@ -24,9 +23,9 @@ body {
   }
   
   .container{
-    
     min-width: fit-content;
     min-height: fit-content;
+    padding-top: 10vh;
   }
 
   .card {

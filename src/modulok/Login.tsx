@@ -1,9 +1,13 @@
 import { Component, ReactNode } from "react";
 import { Link, Route } from "react-router-dom";
 
-import './css/loginstyle.css'
+import './css/register.css'
 
 export default class Login extends Component {
+    
+    
+    
+    
     render(): ReactNode {
         return <div className="login-box">
         <h2>Login</h2>

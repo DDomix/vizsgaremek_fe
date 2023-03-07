@@ -1,9 +1,10 @@
-body {
+.carbg {
     background-image: url('/src/images/background2.jpg');
     background-size: cover; 
-    background-position: middle center;
+    background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed; 
+    min-height: 100vh;
   }
   #engine{
     background-image: url('/src/images/engine.jpg');

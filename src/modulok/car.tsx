@@ -5,7 +5,7 @@ import './css/car.css';
 
 export default class Car extends Component {
     render(): ReactNode {
-        return <div>
+        return <div className="carbg">
             <section className="wrapper">
                 <div className="container">
                     <div className="row">

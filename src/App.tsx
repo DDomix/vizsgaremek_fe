@@ -6,6 +6,8 @@ import MainSite from "./modulok/mainsite";
 import Register from "./modulok/register";
 import Shop from "./modulok/shop";
 
+
+
 function App() {
   return (
     <Routes>

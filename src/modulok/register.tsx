@@ -53,31 +53,27 @@ export default class Register extends React.Component<Props, State> {
             },
             body: JSON.stringify(registerData),
         });
-        const responseBody = await response.json();
+        
+        
+        
 
         if (!response.ok) {
-
-            /*if (response.status === 401) {
-                window.alert("hibás név vagy jelszó");
-            } else {
-                window.alert("szerver hiba");
-            }*/
+            const responseBody = await response.json();
             if(response.status === 400) {
                 window.alert(responseBody.message)
             }
-            else{
-                 window.alert("successful registration");
-            }
             return;
         }
-        localStorage.setItem('authToken', responseBody.token);
+        else{
+            window.alert("successful registration");
+        }
+
         this.setState({
             username: '',
             password: '',
-            Error: '',
+            email: '',
+            passwordagain: '',
         })
-        this.props.onAuthTokenChange(responseBody.token);
-        
     }
 
     render(): ReactNode {

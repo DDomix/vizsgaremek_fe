@@ -1,5 +1,6 @@
 import { Component, FormEvent, ReactNode } from "react";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { RouterProp, withRouter } from "../withRouter";
 
 import './css/register.css'
 
@@ -11,10 +12,11 @@ interface State {
 
 interface Props {
     authToken: string;
+    router: RouterProp;
     onAuthTokenChange: (token: string) => void;
 }
 
-export default class Login extends Component<Props, State> {
+class Login extends Component<Props, State> {
     
     constructor(props: Props) {
         super(props);
@@ -37,7 +39,7 @@ export default class Login extends Component<Props, State> {
             'password': this.state.password,
         };
 
-        const response = await fetch('http://localhost:3000/auth/login', {
+        const response = await fetch('http://localhost:3000/api/users', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -60,19 +62,22 @@ export default class Login extends Component<Props, State> {
             loginError: '',
         })
         this.props.onAuthTokenChange(responseBody.token);
+        this.props.router.navigate('/f1');
     }
 
     render(): ReactNode {
 
+        const { username, password } = this.state;
+
         return <div className="login-box">
         <h2>Login</h2>
-        <form>
+        <form onSubmit={this.handleLogin}>
             <div className="user-box">
-                <input type="text" name="" required />
+                <input type="text" name="" required value={username} onChange={(e) => this.setState({ username: e.target.value })}/>
                 <label>Username</label>
             </div>
             <div className="user-box">
-                <input type="password" name="" required />
+                <input type="password" name="" required value={password} onChange={(e) => this.setState({ password: e.target.value })} />
                 <label>Password</label>
             </div>
             <Link to='/register' className="link-btn">Register</Link>
@@ -87,3 +92,5 @@ export default class Login extends Component<Props, State> {
     </div>
     }
 }
+
+export default withRouter(Login);

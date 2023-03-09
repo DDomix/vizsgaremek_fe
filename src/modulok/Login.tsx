@@ -27,10 +27,6 @@ class Login extends Component<Props, State> {
         }
     }
     
-    handleLogout = () => {
-        localStorage.removeItem('authToken');
-        this.props.onAuthTokenChange('');
-    }
 
     handleLogin = async (e: FormEvent) => {
         e.preventDefault();
@@ -38,30 +34,33 @@ class Login extends Component<Props, State> {
             'username': this.state.username,
             'password': this.state.password,
         };
+        
 
-        const response = await fetch('http://localhost:3000/api/users', {
+        const response = await fetch('http://localhost:3000/auth/login', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(loginData),
         });
+        
         if (!response.ok) {
-            if (response.status === 401) {
-                this.setState({ loginError: 'Hibás név vagy jelszó' });
-            } else {
-                this.setState({ loginError: 'Szerver hiba' });
+            const responseBody = await response.json();
+            if(response.status === 401) {
+                window.alert(responseBody.message)
             }
             return;
         }
         const responseBody = await response.json();
         localStorage.setItem('authToken', responseBody.token);
+        
         this.setState({
             username: '',
             password: '',
             loginError: '',
         })
         this.props.onAuthTokenChange(responseBody.token);
+        
         this.props.router.navigate('/f1');
     }
 

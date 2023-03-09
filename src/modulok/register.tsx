@@ -1,8 +1,7 @@
 import React, { FormEvent } from "react";
-import { Component, ReactNode } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 import './css/register.css';
-import Login from "./Login";
 
 interface State {
     username: string;
@@ -11,14 +10,10 @@ interface State {
     passwordagain: string;
     Error: string;
 }
-interface Props {
-    authToken: string;
-    onAuthTokenChange: (token: string) => void;
-}
 
-export default class Register extends React.Component<Props, State> {
+export default class Register extends React.Component<{}, State> {
     
-    constructor(props: Props) {
+    constructor(props: {}) {
         super(props);
         this.state = {
             username: '',
@@ -29,12 +24,6 @@ export default class Register extends React.Component<Props, State> {
         }
     }
 
-    componentDidMount(): void {
-        const token = localStorage.getItem('authToken');
-        if (token !== null) {
-            this.props.onAuthTokenChange(token);
-        }
-    }
 
     handleregistration = async (e: FormEvent) => {
         e.preventDefault();
@@ -46,7 +35,7 @@ export default class Register extends React.Component<Props, State> {
         };
         
         
-        const response = await fetch('http://localhost:3000/api/users', {
+        const response = await fetch('http://localhost:3000/auth/users', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -78,8 +67,7 @@ export default class Register extends React.Component<Props, State> {
 
     render(): ReactNode {
 
-        const { authToken } = this.props;
-        const { username, password,email,passwordagain, Error: loginError } = this.state;
+        const { username, password,email,passwordagain } = this.state;
         
         return <div>
             <div className="login-box">

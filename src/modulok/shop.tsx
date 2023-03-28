@@ -1,13 +1,26 @@
-import { getValue } from "@testing-library/user-event/dist/utils";
 import { Component, FormEvent, ReactNode } from "react";
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.bundle';
+import { Link } from "react-router-dom";
 import './css/shopstyle.css';
+import { Button, Card, CardGroup, Col, Row } from "react-bootstrap";
+import { type } from "os";
 
 interface State {
+    data: Result[];
     color: string;
+    type: string;
     size: string;
     team: string;
-    name: string;
 }
+interface Result {
+    id: number;
+    color: string;
+    type: string;
+    size: string;
+    team: string;
+}
+
 
 
 export default class Shop extends Component<{}, State> {
@@ -17,20 +30,15 @@ export default class Shop extends Component<{}, State> {
         this.state = {
             color: '',
             size: '',
+            type: '',
             team: '',
-            name: '',
+            data: [],
         }
     }
 
 
-    kereses = async (e: FormEvent) => {
-        e.preventDefault();
-        console.log(e)
+    kereses = async () => {
         const loginData: any = {
-            /*'color': this.state.color,
-            'size': this.state.size,
-            'team': this.state.team,*/
-            'name': this.state.name,
         };
         if (this.state.color) {
             loginData.color = this.state.color
@@ -41,6 +49,9 @@ export default class Shop extends Component<{}, State> {
         if (this.state.team) {
             loginData.team = this.state.team
         }
+        if (this.state.type) {
+            loginData.type = this.state.type
+        }
 
         const response = await fetch('http://localhost:3000/api/shop', {
             method: 'POST',
@@ -50,30 +61,24 @@ export default class Shop extends Component<{}, State> {
             body: JSON.stringify(loginData),
         });
 
-        console.table(response);
+        const adatok = await response.json() as Result[];
+        this.setState({
+            data: adatok,
+        }, () => { console.log(this.state.data); })
+
+        //console.table(response);
+        
     }
+    componentDidMount() {
+        this.kereses();
+      }
 
 
     render(): ReactNode {
 
-        const { color, size, team } = this.state;
+        const { color, size, team, type } = this.state;
 
         return <div className="shopstyle">
-            <div className="dropdown">
-                <button className="dropbtn">Szín</button>
-                <div className="dropdown-content">
-                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Fekete" })} />Fekete
-                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Fehér" })} />Fehér
-                </div>
-            </div>
-            <div className="dropdown">
-                <button className="dropbtn">Méret</button>
-                <div className="dropdown-content">
-                    <input type="radio" id="S" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "S" })} />S
-                    <input type="radio" id="M" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "M" })} />M
-                    <input type="radio" id="L" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "L" })} />L
-                </div>
-            </div>
             <div className="dropdown">
                 <button className="dropbtn">Csapat</button>
                 <div className="dropdown-content">
@@ -89,7 +94,46 @@ export default class Shop extends Component<{}, State> {
                     <input type="radio" id="Williams" name="team" value={team} onChange={(e) => this.setState({ team: e.target.value = "Williams" })} />Williams
                 </div>
             </div>
+            <div className="dropdown">
+                <button className="dropbtn">Méret</button>
+                <div className="dropdown-content">
+                    <input type="radio" id="S" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "S" })} />S
+                    <input type="radio" id="M" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "M" })} />M
+                    <input type="radio" id="L" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "L" })} />L
+                </div>
+            </div>
+            <div className="dropdown">
+                <button className="dropbtn">Szín</button>
+                <div className="dropdown-content">
+                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Fekete" })} />Fekete
+                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Fehér" })} />Fehér
+                </div>
+            </div>
+            
+            <div className="dropdown">
+                <button className="dropbtn">Típus</button>
+                <div className="dropdown-content">
+                    <input type="radio" id="T-Shirt" name="team" value={type} onChange={(e) => this.setState({ type: e.target.value = "T-Shirt" })} />T-Shirt
+                    <input type="radio" id="Cap" name="team" value={type} onChange={(e) => this.setState({ type: e.target.value = "Cap" })} />Cap
+                </div>
+            </div>
             <button onClick={this.kereses}>Keresés</button>
+            {<Row xs={1} md={4} className="g-4">
+                {this.state.data.map((item, idx) => (
+                    <Col>
+                        <Card>
+                            <Card.Img variant="top" src={'/images/shop/'+item.id+'.jpg'}/>
+                            <Card.Body>
+                                <Card.Title>{item.team} {item.type}</Card.Title>
+                                <Card.Text>
+                                  Szín: {item.color}<br/>
+                                  Size: {item.size}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>}
         </div>
     }
 }

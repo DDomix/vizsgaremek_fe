@@ -1,6 +1,13 @@
-body{
-    color:white;
+.shopstyle{
+  color:black;
+  background-image: url('/src/images/shopbackground.jpg');
+  background-size: cover; 
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
+
 .dropbtn {
   background-color: #04AA6D;
   color: black;

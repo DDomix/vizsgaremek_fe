@@ -122,7 +122,7 @@ export default class Shop extends Component<{}, State> {
                 {this.state.data.map((item, idx) => (
                     <Col>
                         <Card>
-                            <Card.Img variant="top" src={'/images/shop/'+item.id+'.jpg'}/>
+                            <Card.Img variant="top" src={'/images/shop/'+item.team+ ' '+item.color+ '.jpg'}/>
                             <Card.Body>
                                 <Card.Title>{item.team} {item.type}</Card.Title>
                                 <Card.Text>

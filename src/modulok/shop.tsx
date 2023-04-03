@@ -12,6 +12,8 @@ interface State {
     type: string;
     size: string;
     team: string;
+    price: number;
+    quantity: number;
 }
 interface Result {
     id: number;
@@ -19,6 +21,8 @@ interface Result {
     type: string;
     size: string;
     team: string;
+    price: number;
+    quantity: number;
 }
 
 
@@ -32,6 +36,8 @@ export default class Shop extends Component<{}, State> {
             size: '',
             type: '',
             team: '',
+            price: 0,
+            quantity: 0,
             data: [],
         }
     }
@@ -71,7 +77,23 @@ export default class Shop extends Component<{}, State> {
     }
     componentDidMount() {
         this.kereses();
-      }
+    }
+
+    async productpage(e: FormEvent) {
+        const id = e.currentTarget.id;
+        console.log(id);
+        let response = await fetch('http://localhost:3000/api/shop/'+id,{
+            method:'GET',
+            headers: {
+                'Content-type': 'application/json'
+            },
+        });
+        console.log(response)
+    }
+
+    addtocart(){
+        
+    }
 
 
     render(): ReactNode {
@@ -119,7 +141,7 @@ export default class Shop extends Component<{}, State> {
             </div>
             <button onClick={this.kereses}>Keresés</button>
             {<Row xs={1} md={4} className="g-4">
-                {this.state.data.map((item, idx) => (
+                {this.state.data.map((item) => (
                     <Col>
                         <Card>
                             <Card.Img variant="top" src={'/images/shop/'+item.team+ ' '+item.color+ '.jpg'}/>
@@ -129,6 +151,11 @@ export default class Shop extends Component<{}, State> {
                                   Szín: {item.color}<br/>
                                   Size: {item.size}
                                 </Card.Text>
+                                <Card.Text style={{float: "right", color: "green", width: "fit-content"}}>
+                                    Price: {item.price} Ft <br/>
+                                    Remaining: {item.quantity} db
+                                </Card.Text>
+                                <Button style={{float: "left"}} onClick={this.addtocart}>Add To Cart</Button>
                             </Card.Body>
                         </Card>
                     </Col>

@@ -15,7 +15,7 @@ export default class Logout extends Component<Props> {
     render(): ReactNode {
        
        if(this.props.authToken!==''){
-            return <Link to='/'><button onClick={this.handleLogout}>Logout</button></Link>
+            return <Link to='/'><button onClick={this.handleLogout} className="logoutbutton">Logout</button></Link>
        }
         
     }

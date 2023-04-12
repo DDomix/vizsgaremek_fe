@@ -1,10 +1,9 @@
 import { Component, FormEvent, ReactNode } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
-import { Link } from "react-router-dom";
 import './css/shopstyle.css';
-import { Button, Card, CardGroup, Col, Row } from "react-bootstrap";
-import { type } from "os";
+import { Button, Card, Col, Row } from "react-bootstrap";
+
 
 interface State {
     data: Result[];
@@ -24,7 +23,10 @@ interface Result {
     price: number;
     quantity: number;
 }
-
+interface Token {
+    authToken: string;
+    onAuthTokenChange: (token: string) => void;
+} 
 
 
 export default class Shop extends Component<{}, State> {
@@ -44,19 +46,19 @@ export default class Shop extends Component<{}, State> {
 
 
     kereses = async () => {
-        const loginData: any = {
+        const filterData: any = {
         };
         if (this.state.color) {
-            loginData.color = this.state.color
+            filterData.color = this.state.color
         }
         if (this.state.size) {
-            loginData.size = this.state.size
+            filterData.size = this.state.size
         }
         if (this.state.team) {
-            loginData.team = this.state.team
+            filterData.team = this.state.team
         }
         if (this.state.type) {
-            loginData.type = this.state.type
+            filterData.type = this.state.type
         }
 
         const response = await fetch('http://localhost:3000/api/shop', {
@@ -64,7 +66,7 @@ export default class Shop extends Component<{}, State> {
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(loginData),
+            body: JSON.stringify(filterData),
         });
 
         const adatok = await response.json() as Result[];
@@ -100,7 +102,9 @@ export default class Shop extends Component<{}, State> {
 
         const { color, size, team, type } = this.state;
 
-        return <div className="shopstyle">
+        /*if (this.props.authToken === '') {
+            return <Navigate to='/'/>
+        }*/ return <div className="shopstyle">
             <div className="dropdown">
                 <button className="dropbtn">Csapat</button>
                 <div className="dropdown-content">
@@ -119,9 +123,11 @@ export default class Shop extends Component<{}, State> {
             <div className="dropdown">
                 <button className="dropbtn">Méret</button>
                 <div className="dropdown-content">
+                    <input type="radio" id="S" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "XS" })} />XS
                     <input type="radio" id="S" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "S" })} />S
                     <input type="radio" id="M" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "M" })} />M
                     <input type="radio" id="L" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "L" })} />L
+                    <input type="radio" id="S" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "XL" })} />XL
                 </div>
             </div>
             <div className="dropdown">
@@ -129,6 +135,11 @@ export default class Shop extends Component<{}, State> {
                 <div className="dropdown-content">
                     <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Fekete" })} />Fekete
                     <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Fehér" })} />Fehér
+                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Piros" })} />Piros
+                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Sárga" })} />Sárga
+                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Narancs" })} />Narancs
+                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Zöld" })} />Zöld
+                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Kék" })} />Kék
                 </div>
             </div>
             
@@ -154,6 +165,7 @@ export default class Shop extends Component<{}, State> {
                                 <Card.Text style={{float: "right", color: "green", width: "fit-content"}}>
                                     Price: {item.price} Ft <br/>
                                     Remaining: {item.quantity} db
+                                    
                                 </Card.Text>
                                 <Button style={{float: "left"}} onClick={this.addtocart}>Add To Cart</Button>
                             </Card.Body>

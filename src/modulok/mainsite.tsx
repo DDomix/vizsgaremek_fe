@@ -2,12 +2,21 @@ import { Component, ReactNode } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import './css/mainsite.css';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 
+interface Props {
+    authToken: string;
+    onAuthTokenChange: (token: string) => void;
+} 
+export default class MainSite extends Component<Props> {
+    
 
-export default class MainSite extends Component {
     render(): ReactNode {
+
+        if (this.props.authToken === '') {
+            return <Navigate to='/'/>
+        }
         return <div className="mainsite">
             <section className="wrapper">
                 <div className="container">

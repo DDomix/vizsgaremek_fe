@@ -1,3 +1,4 @@
+import { ResultType } from "@remix-run/router/dist/utils";
 import { Component, ReactNode } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 
@@ -51,9 +52,24 @@ export default class Engine extends Component<{}, State>{
         });
         
         const adatok = await response.json() as Result[];
-        this.setState({
-            data: adatok,
-        }, () => { console.log(this.state.data); })
+        adatok.forEach((pricecheck)=>{
+            if(pricecheck.price>this.state.min && pricecheck.price<this.state.max){
+                this.setState((prevState) => {
+                    const filteredData = [...prevState.data, pricecheck];
+                    return { data: filteredData };
+                  }, () => {
+                    console.log(this.state.data);
+                  });
+            }
+            else{
+                this.setState({
+                    data: adatok,
+                }, () => { console.log(this.state.data); })
+            }
+        })
+          
+        
+        
 
         //console.table(response);
         

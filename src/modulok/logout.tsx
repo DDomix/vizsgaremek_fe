@@ -1,5 +1,7 @@
 import { Component, ReactNode } from "react";
+import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import './css/profilestyle.css';
 
 interface Props {
     authToken: string;
@@ -13,10 +15,19 @@ export default class Logout extends Component<Props> {
     }
 
     render(): ReactNode {
-       
-       if(this.props.authToken!==''){
-            return <Link to='/'><button onClick={this.handleLogout} className="logoutbutton">Logout</button></Link>
-       }
-        
+
+        if (this.props.authToken !== '') {
+            return <Dropdown className="profile">
+                <Dropdown.Toggle>
+                    Profile
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                    <Dropdown.Item>Profile</Dropdown.Item>
+                    <Dropdown.Item><Link to='/'><button onClick={this.handleLogout} className="logoutbutton">Logout</button></Link></Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+        }
+
     }
 }

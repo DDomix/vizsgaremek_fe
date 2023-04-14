@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import Bodywork from "./modulok/bodywork";
 import Car from "./modulok/car";
+import Driveability from "./modulok/driveability";
 import Drivers from "./modulok/drivers";
+import Engine from "./modulok/engine";
 import Login from "./modulok/Login";
 import Logout from "./modulok/logout";
 import MainSite from "./modulok/mainsite";
@@ -37,6 +40,9 @@ function App() {
       <Route path="/f1" element={<MainSite authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
       <Route path="/*" element={<MainSite authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
       <Route path="/car" element={<Car />}></Route>
+      <Route path="/engine" element={<Engine />}></Route>
+      <Route path="/bodywork" element={<Bodywork />}></Route>
+      <Route path="/driveability" element={<Driveability />}></Route>
       <Route path="/drivers" element={<Drivers />}></Route>
       <Route path="/shop" element={<Shop/>}></Route>
     </Routes></>

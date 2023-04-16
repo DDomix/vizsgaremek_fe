@@ -105,6 +105,7 @@ export default class Shop extends Component<{}, State> {
         /*if (this.props.authToken === '') {
             return <Navigate to='/'/>
         }*/ return <div className="shopstyle">
+            {/* <input type="search" placeholder="Csapat" onChange={(e) => this.setState({ team: e.target.value })}/> */}
             <div className="dropdown">
                 <button className="dropbtn">Csapat</button>
                 <div className="dropdown-content">

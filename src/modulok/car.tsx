@@ -2,10 +2,18 @@ import { Component, ReactNode } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import './css/car.css';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
-export default class Car extends Component {
+interface Token {
+    authToken: string;
+    onAuthTokenChange: (token: string) => void;
+}
+
+export default class Car extends Component<Token> {
     render(): ReactNode {
+        if (this.props.authToken === '') {
+            return <Navigate to='/'/>
+        }
         return <div className="carbg">
             <section className="wrapper">
                 <div className="container">

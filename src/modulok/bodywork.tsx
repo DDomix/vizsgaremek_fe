@@ -1,5 +1,6 @@
 import { Component, ReactNode } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
 
 interface State {
     data: Result[];
@@ -15,9 +16,13 @@ interface Result {
     price: number;
     quantity: number;
 }
+interface Token {
+    authToken: string;
+    onAuthTokenChange: (token: string) => void;
+}
 
-export default class Bodywork extends Component<{}, State>{
-    constructor(props: {}) {
+export default class Bodywork extends Component<Token, State>{
+    constructor(props: Token) {
         super(props);
         this.state = {
             leiras: '',
@@ -61,7 +66,9 @@ export default class Bodywork extends Component<{}, State>{
 
     render(): ReactNode {
         /*const { min, max } = this.state;*/
-
+        if (this.props.authToken === '') {
+            return <Navigate to='/'/>
+        }
         return <div>
             {/* <input type="number" placeholder="MIN" onChange={(e) => this.setState({ min: e.target.valueAsNumber })} /> */}
             {/* <input type="number" placeholder="MAX" onChange={(e) => this.setState({ min: e.target.valueAsNumber })} /> */}

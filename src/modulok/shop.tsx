@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import './css/shopstyle.css';
 import { Button, Card, Col, Row } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
 
 
 interface State {
@@ -29,9 +30,9 @@ interface Token {
 } 
 
 
-export default class Shop extends Component<{}, State> {
+export default class Shop extends Component<Token, State> {
 
-    constructor(props: {}) {
+    constructor(props: Token) {
         super(props);
         this.state = {
             color: '',
@@ -102,9 +103,9 @@ export default class Shop extends Component<{}, State> {
 
         const { color, size, team, type } = this.state;
 
-        /*if (this.props.authToken === '') {
+        if (this.props.authToken === '') {
             return <Navigate to='/'/>
-        }*/ return <div className="shopstyle">
+        } return <div className="shopstyle">
             {/* <input type="search" placeholder="Csapat" onChange={(e) => this.setState({ team: e.target.value })}/> */}
             <div className="dropdown">
                 <button className="dropbtn">Csapat</button>

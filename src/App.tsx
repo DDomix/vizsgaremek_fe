@@ -39,12 +39,12 @@ function App() {
       <Route path="/register" element={<Register />}></Route>
       <Route path="/f1" element={<MainSite authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
       <Route path="/*" element={<MainSite authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
-      <Route path="/car" element={<Car />}></Route>
-      <Route path="/engine" element={<Engine />}></Route>
-      <Route path="/bodywork" element={<Bodywork />}></Route>
-      <Route path="/driveability" element={<Driveability />}></Route>
+      <Route path="/car" element={<Car authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
+      <Route path="/engine" element={<Engine authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
+      <Route path="/bodywork" element={<Bodywork authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
+      <Route path="/driveability" element={<Driveability authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
       <Route path="/drivers" element={<Drivers />}></Route>
-      <Route path="/shop" element={<Shop/>}></Route>
+      <Route path="/shop" element={<Shop authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
     </Routes></>
   );
 }

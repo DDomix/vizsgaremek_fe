@@ -19,7 +19,7 @@ export default class Logout extends Component<Props> {
         if (this.props.authToken !== '') {
             return <Dropdown className="profile">
                 <Dropdown.Toggle>
-                    Profile
+                    
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>

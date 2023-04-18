@@ -9,10 +9,37 @@ interface Props {
 }
 
 export default class Logout extends Component<Props> {
-    handleLogout = () => {
-        localStorage.removeItem('authToken');
-        this.props.onAuthTokenChange('');
-    }
+    handleLogout = async () => {
+        try {
+          // Remove the token from local storage
+          localStorage.removeItem('authToken');
+      
+          // Update the authToken state
+          this.props.onAuthTokenChange('');
+      
+          // Trigger the server-side logout functionality
+          const response = await fetch('/auth/logout', {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+              'Content-Type': 'application/json',
+            },
+          });
+      
+          // Check the response status
+          if (response.status === 200) {
+            // Logout successful
+            // Do any additional cleanup or redirect the user to the login page
+          } else {
+            // Logout failed
+            // Handle the error here
+          }
+        } catch (error) {
+          console.error(error);
+          // Handle the error here
+        }
+      }
+      
 
     render(): ReactNode {
 

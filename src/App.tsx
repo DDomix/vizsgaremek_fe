@@ -43,7 +43,7 @@ function App() {
       <Route path="/engine" element={<Engine authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
       <Route path="/bodywork" element={<Bodywork authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
       <Route path="/driveability" element={<Driveability authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
-      <Route path="/drivers" element={<Drivers />}></Route>
+      <Route path="/drivers" element={<Drivers authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
       <Route path="/shop" element={<Shop authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
     </Routes></>
   );

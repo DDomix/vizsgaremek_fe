@@ -73,10 +73,9 @@ export default class Shop extends Component<Token, State> {
         const adatok = await response.json() as Result[];
         this.setState({
             data: adatok,
-        }, () => { console.log(this.state.data); })
-
-        //console.table(response);
+        })
         
+        //console.table(response);
     }
     componentDidMount() {
         this.kereses();

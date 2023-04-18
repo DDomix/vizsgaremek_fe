@@ -95,10 +95,7 @@ export default class Shop extends Component<Token, State> {
     }
     filterdelete=async ()=> {
         console.log(this)
-        await this.setState({team:''})
-        await this.setState({type:''})
-        await this.setState({color:''})
-        await this.setState({size:''})
+        await this.setState({team:'', type:'', color:'', size:''})
         this.kereses();
     }
 

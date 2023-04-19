@@ -3,11 +3,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import './css/shopstyle.css';
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
-
+import { Link, Navigate } from "react-router-dom";
+import Cart from './cart';
 
 interface State {
     data: Result[];
+    cart: Result[];
     color: string;
     type: string;
     size: string;
@@ -42,6 +43,7 @@ export default class Shop extends Component<Token, State> {
             price: 0,
             quantity: 0,
             data: [],
+            cart: [],
         }
     }
 
@@ -81,31 +83,37 @@ export default class Shop extends Component<Token, State> {
         this.kereses();
     }
 
-    async productpage(e: FormEvent) {
-        const id = e.currentTarget.id;
-        console.log(id);
-        let response = await fetch('http://localhost:3000/api/shop/'+id,{
-            method:'GET',
-            headers: {
-                'Content-type': 'application/json'
-            },
-        });
-        console.log(response)
-    }
+    // async productpage(e: FormEvent) {
+    //     const id = e.currentTarget.id;
+    //     console.log(id);
+    //     let response = await fetch('http://localhost:3000/api/shop/'+id,{
+    //         method:'GET',
+    //         headers: {
+    //             'Content-type': 'application/json'
+    //         },
+    //     });
+    //     console.log(response)
+    // }
+    
     filterdelete=async ()=> {
         console.log(this)
         await this.setState({team:'', type:'', color:'', size:''})
         this.kereses();
     }
 
-    addtocart(){
-        
-    }
+    addtocart(item: Result) {
+        const { cart } = this.state;
+        const updatedCart = [...cart, item];
+        this.setState({ cart: updatedCart });
+        window.alert("added to the cart");
+        console.log(updatedCart);
+        <Cart updatedCart={updatedCart} />
+    } 
 
 
     render(): ReactNode {
 
-        const { color, size, team, type } = this.state;
+        const { color, size, team, type, data } = this.state;
 
         if (this.props.authToken === '') {
             return <Navigate to='/'/>
@@ -159,10 +167,11 @@ export default class Shop extends Component<Token, State> {
             </div>
             <button onClick={this.kereses}>Keresés</button>
             <button onClick={this.filterdelete}>Feltételek törlése</button>
+            <Link to='/cart'><button>Cart</button></Link>
             {<Row xs={1} md={4} className="g-4">
-                {this.state.data.map((item) => (
+                {this.state.data.map((item:Result) => (
                     <Col>
-                        <Card>
+                        <Card key={item.id}>
                             <Card.Img variant="top" src={'/images/shop/'+item.team+ ' '+item.type+ ' ' +item.color+ '.jpg'}/>
                             <Card.Body>
                                 <Card.Title>{item.team} {item.type}</Card.Title>
@@ -175,7 +184,7 @@ export default class Shop extends Component<Token, State> {
                                     Remaining: {item.quantity} db
                                     
                                 </Card.Text>
-                                <Button style={{float: "left"}} onClick={this.addtocart}>Add To Cart</Button>
+                                <Button style={{float: "left"}} onClick={()=>this.addtocart(item)}>Add To Cart</Button>
                             </Card.Body>
                         </Card>
                     </Col>

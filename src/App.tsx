@@ -10,12 +10,13 @@ import Logout from "./modulok/logout";
 import MainSite from "./modulok/mainsite";
 import Register from "./modulok/register";
 import Shop from "./modulok/shop";
+import Cart from "./modulok/cart";
 
 
 function App() {
   const [ authToken, setAuthToken ] = useState('');
   const [ loading, setLoading ] = useState(true);
-
+  
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
@@ -45,6 +46,7 @@ function App() {
       <Route path="/driveability" element={<Driveability authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
       <Route path="/drivers" element={<Drivers authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
       <Route path="/shop" element={<Shop authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
+      <Route path="/cart" element={<Cart updatedCart={[]}/>}></Route>
     </Routes></>
   );
 }

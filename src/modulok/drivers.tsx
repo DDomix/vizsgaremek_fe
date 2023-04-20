@@ -76,6 +76,7 @@ export default class Drivers extends Component<Token, State> {
             },
             body: JSON.stringify(filterData),
         });
+        
 
         const adatok = await response.json() as Result[];
         this.setState({
@@ -105,6 +106,11 @@ export default class Drivers extends Component<Token, State> {
             <input type="search" id="nevmezo" placeholder="Név" onChange={(e) => this.setState({ nev: e.target.value })}/>
             <input type="search" placeholder="Csapat" onChange={(e) => this.setState({ csapat: e.target.value })}/>
             <input type="search" placeholder="Nemzetiség" onChange={(e) => this.setState({ nemzetiseg: e.target.value })}/>
+            <select onChange={(e)=>this.setState({ kategoria: e.target.value})}>
+                <option></option>
+                <option value="Formula2">Formula2</option>
+                <option value="Formula3">Formula3</option>
+            </select>
             <button onClick={this.kereses}>Keresés</button>
             <button onClick={this.filterdelete}>Feltételek törlése</button>
             {<Row xs={1} md={4} className="g-4">

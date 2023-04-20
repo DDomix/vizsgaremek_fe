@@ -1,4 +1,4 @@
-import { ChangeEvent, Component, FormEvent, ReactNode, useState } from "react";
+import { Component, ReactNode, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import './css/shopstyle.css';
@@ -8,7 +8,6 @@ import Cart from './cart';
 
 interface State {
     data: Result[];
-    cart: Result[];
     color: string;
     type: string;
     size: string;
@@ -25,15 +24,16 @@ interface Result {
     price: number;
     quantity: number;
 }
-interface Token {
+interface Props {
     authToken: string;
     onAuthTokenChange: (token: string) => void;
-} 
+    addToCart: (r: Result) => void;
+}
 
 
-export default class Shop extends Component<Token, State> {
+export default class Shop extends Component<Props, State> {
 
-    constructor(props: Token) {
+    constructor(props: Props) {
         super(props);
         this.state = {
             color: '',
@@ -43,7 +43,6 @@ export default class Shop extends Component<Token, State> {
             price: 0,
             quantity: 0,
             data: [],
-            cart: [],
         }
     }
 
@@ -76,7 +75,7 @@ export default class Shop extends Component<Token, State> {
         this.setState({
             data: adatok,
         })
-        
+
         //console.table(response);
     }
     componentDidMount() {
@@ -94,97 +93,93 @@ export default class Shop extends Component<Token, State> {
     //     });
     //     console.log(response)
     // }
-    
-    filterdelete=async ()=> {
+
+    filterdelete = async () => {
         console.log(this)
-        await this.setState({team:'', type:'', color:'', size:''})
+        await this.setState({ team: '', type: '', color: '', size: '' })
         this.kereses();
     }
 
     addtocart(item: Result) {
-        const { cart } = this.state;
-        const updatedCart = [...cart, item];
-        this.setState({ cart: updatedCart });
+        this.props.addToCart(item);
         window.alert("added to the cart");
-        console.log(updatedCart);
-        <Cart updatedCart={updatedCart} />
-    } 
+    }
 
 
     render(): ReactNode {
 
-        const { color, size, team, type, data } = this.state;
+        const { color, size, team, type } = this.state;
 
         if (this.props.authToken === '') {
-            return <Navigate to='/'/>
+            return <Navigate to='/' />
         } return <div className="shopstyle">
             {/* <input type="search" placeholder="Csapat" onChange={(e) => this.setState({ team: e.target.value })}/> */}
             <div className="dropdown">
                 <button className="dropbtn">Csapat</button>
                 <div className="dropdown-content">
-                    <input type="radio" id="Red-Bull" name="team" value={team} checked={this.state.team==='Red-Bull'} onChange={(e) => this.setState({ team: e.target.value = "Red-Bull" })} />Red-Bull
-                    <input type="radio" id="Mercedes" name="team" value={team} checked={this.state.team==='Mercedes'} onChange={(e) => this.setState({ team: e.target.value = "Mercedes" })} />Mercedes
-                    <input type="radio" id="Ferrari" name="team" value={team} checked={this.state.team==='Ferrari'} onChange={(e) => this.setState({ team: e.target.value = "Ferrari" })} />Ferrari
-                    <input type="radio" id="McLaren" name="team" value={team} checked={this.state.team==='McLaren'} onChange={(e) => this.setState({ team: e.target.value = "McLaren" })} />McLaren
-                    <input type="radio" id="Alpine" name="team" value={team} checked={this.state.team==='Alpine'} onChange={(e) => this.setState({ team: e.target.value = "Alpine" })} />Alpine
-                    <input type="radio" id="Aston Martin" name="team" value={team} checked={this.state.team==='Aston Martin'} onChange={(e) => this.setState({ team: e.target.value = "Aston Martin" })} />Aston Martin
-                    <input type="radio" id="Alpha Tauri" name="team" value={team} checked={this.state.team==='Alpha Tauri'} onChange={(e) => this.setState({ team: e.target.value = "Alpha Tauri" })} />Alpha Tauri
-                    <input type="radio" id="Alfa Romeo" name="team" value={team} checked={this.state.team==='Alfa Romeo'} onChange={(e) => this.setState({ team: e.target.value = "Alfa Romeo" })} />Alfa Romeo
-                    <input type="radio" id="Haas" name="team" value={team} checked={this.state.team==='Haas'} onChange={(e) => this.setState({ team: e.target.value = "Haas" })} />Haas
-                    <input type="radio" id="Williams" name="team" value={team} checked={this.state.team==='Williams'} onChange={(e) => this.setState({ team: e.target.value = "Williams" })} />Williams
+                    <input type="radio" id="Red-Bull" name="team" value={team} checked={this.state.team === 'Red-Bull'} onChange={(e) => this.setState({ team: e.target.value = "Red-Bull" })} />Red-Bull
+                    <input type="radio" id="Mercedes" name="team" value={team} checked={this.state.team === 'Mercedes'} onChange={(e) => this.setState({ team: e.target.value = "Mercedes" })} />Mercedes
+                    <input type="radio" id="Ferrari" name="team" value={team} checked={this.state.team === 'Ferrari'} onChange={(e) => this.setState({ team: e.target.value = "Ferrari" })} />Ferrari
+                    <input type="radio" id="McLaren" name="team" value={team} checked={this.state.team === 'McLaren'} onChange={(e) => this.setState({ team: e.target.value = "McLaren" })} />McLaren
+                    <input type="radio" id="Alpine" name="team" value={team} checked={this.state.team === 'Alpine'} onChange={(e) => this.setState({ team: e.target.value = "Alpine" })} />Alpine
+                    <input type="radio" id="Aston Martin" name="team" value={team} checked={this.state.team === 'Aston Martin'} onChange={(e) => this.setState({ team: e.target.value = "Aston Martin" })} />Aston Martin
+                    <input type="radio" id="Alpha Tauri" name="team" value={team} checked={this.state.team === 'Alpha Tauri'} onChange={(e) => this.setState({ team: e.target.value = "Alpha Tauri" })} />Alpha Tauri
+                    <input type="radio" id="Alfa Romeo" name="team" value={team} checked={this.state.team === 'Alfa Romeo'} onChange={(e) => this.setState({ team: e.target.value = "Alfa Romeo" })} />Alfa Romeo
+                    <input type="radio" id="Haas" name="team" value={team} checked={this.state.team === 'Haas'} onChange={(e) => this.setState({ team: e.target.value = "Haas" })} />Haas
+                    <input type="radio" id="Williams" name="team" value={team} checked={this.state.team === 'Williams'} onChange={(e) => this.setState({ team: e.target.value = "Williams" })} />Williams
                 </div>
             </div>
             <div className="dropdown">
                 <button className="dropbtn">Méret</button>
                 <div className="dropdown-content">
-                    <input type="radio" id="S" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "XS" })} />XS
-                    <input type="radio" id="S" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "S" })} />S
-                    <input type="radio" id="M" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "M" })} />M
-                    <input type="radio" id="L" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "L" })} />L
-                    <input type="radio" id="S" name="meret" value={size} onChange={(e) => this.setState({ size: e.target.value = "XL" })} />XL
+                    <input type="radio" id="S" name="meret" value={size} checked={this.state.size === 'XS'} onChange={(e) => this.setState({ size: e.target.value = "XS" })} />XS
+                    <input type="radio" id="S" name="meret" value={size} checked={this.state.size === 'S'} onChange={(e) => this.setState({ size: e.target.value = "S" })} />S
+                    <input type="radio" id="M" name="meret" value={size} checked={this.state.size === 'M'} onChange={(e) => this.setState({ size: e.target.value = "M" })} />M
+                    <input type="radio" id="L" name="meret" value={size} checked={this.state.size === 'L'} onChange={(e) => this.setState({ size: e.target.value = "L" })} />L
+                    <input type="radio" id="S" name="meret" value={size} checked={this.state.size === 'XL'} onChange={(e) => this.setState({ size: e.target.value = "XL" })} />XL
                 </div>
             </div>
             <div className="dropdown">
                 <button className="dropbtn">Szín</button>
                 <div className="dropdown-content">
-                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Fekete" })} />Fekete
-                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Fehér" })} />Fehér
-                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Piros" })} />Piros
-                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Sárga" })} />Sárga
-                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Narancs" })} />Narancs
-                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Zöld" })} />Zöld
-                    <input type="radio" name="szin" value={color} onChange={(e) => this.setState({ color: e.target.value = "Kék" })} />Kék
+                    <input type="radio" name="szin" value={color} checked={this.state.color === 'Fekete'} onChange={(e) => this.setState({ color: e.target.value = "Fekete" })} />Fekete
+                    <input type="radio" name="szin" value={color} checked={this.state.color === 'Fehér'} onChange={(e) => this.setState({ color: e.target.value = "Fehér" })} />Fehér
+                    <input type="radio" name="szin" value={color} checked={this.state.color === 'Piros'} onChange={(e) => this.setState({ color: e.target.value = "Piros" })} />Piros
+                    <input type="radio" name="szin" value={color} checked={this.state.color === 'Sérga'} onChange={(e) => this.setState({ color: e.target.value = "Sárga" })} />Sárga
+                    <input type="radio" name="szin" value={color} checked={this.state.color === 'Narancs'} onChange={(e) => this.setState({ color: e.target.value = "Narancs" })} />Narancs
+                    <input type="radio" name="szin" value={color} checked={this.state.color === 'Zöld'} onChange={(e) => this.setState({ color: e.target.value = "Zöld" })} />Zöld
+                    <input type="radio" name="szin" value={color} checked={this.state.color === 'Kék'} onChange={(e) => this.setState({ color: e.target.value = "Kék" })} />Kék
                 </div>
             </div>
-            
+
             <div className="dropdown">
                 <button className="dropbtn">Típus</button>
                 <div className="dropdown-content">
-                    <input type="radio" id="T-Shirt" name="team" value={type} onChange={(e) => this.setState({ type: e.target.value = "T-Shirt" })} />T-Shirt
-                    <input type="radio" id="Cap" name="team" value={type} onChange={(e) => this.setState({ type: e.target.value = "Cap" })} />Cap
-                    <input type="radio" id="Cap" name="team" value={type} onChange={(e) => this.setState({ type: e.target.value = "Hoodie" })} />Hoodie
+                    <input type="radio" id="T-Shirt" name="team" value={type} checked={this.state.type === 'T-Shirt'} onChange={(e) => this.setState({ type: e.target.value = "T-Shirt" })} />T-Shirt
+                    <input type="radio" id="Cap" name="team" value={type} checked={this.state.type === 'Cap'} onChange={(e) => this.setState({ type: e.target.value = "Cap" })} />Cap
+                    <input type="radio" id="Cap" name="team" value={type} checked={this.state.type === 'Hoodie'} onChange={(e) => this.setState({ type: e.target.value = "Hoodie" })} />Hoodie
                 </div>
             </div>
             <button onClick={this.kereses}>Keresés</button>
             <button onClick={this.filterdelete}>Feltételek törlése</button>
             <Link to='/cart'><button>Cart</button></Link>
             {<Row xs={1} md={4} className="g-4">
-                {this.state.data.map((item:Result) => (
+                {this.state.data.map((item: Result) => (
                     <Col>
                         <Card key={item.id}>
-                            <Card.Img variant="top" src={'/images/shop/'+item.team+ ' '+item.type+ ' ' +item.color+ '.jpg'}/>
+                            <Card.Img variant="top" src={'/images/shop/' + item.team + ' ' + item.type + ' ' + item.color + '.jpg'} />
                             <Card.Body>
                                 <Card.Title>{item.team} {item.type}</Card.Title>
                                 <Card.Text>
-                                  Szín: {item.color}<br/>
-                                  Size: {item.size}
+                                    Szín: {item.color}<br />
+                                    Size: {item.size}
                                 </Card.Text>
-                                <Card.Text style={{float: "right", color: "green", width: "fit-content"}}>
-                                    Price: {item.price} Ft <br/>
+                                <Card.Text style={{ float: "right", color: "green", width: "fit-content" }}>
+                                    Price: {item.price} Ft <br />
                                     Remaining: {item.quantity} db
-                                    
+
                                 </Card.Text>
-                                <Button style={{float: "left"}} onClick={()=>this.addtocart(item)}>Add To Cart</Button>
+                                <Button style={{ float: "left" }} onClick={() => this.addtocart(item)}>Add To Cart</Button>
                             </Card.Body>
                         </Card>
                     </Col>

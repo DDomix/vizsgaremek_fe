@@ -10,13 +10,24 @@ import Logout from "./modulok/logout";
 import MainSite from "./modulok/mainsite";
 import Register from "./modulok/register";
 import Shop from "./modulok/shop";
-import Cart from "./modulok/cart";
+import Cart, { Result } from "./modulok/cart";
 
 
 function App() {
   const [ authToken, setAuthToken ] = useState('');
   const [ loading, setLoading ] = useState(true);
-  
+  const [ cart, setCart ] = useState([] as Result[]);
+
+  function addToCart(r: Result) {
+    setCart([ ...cart, r ]);
+  }
+
+  function removeFromCart(i: number) {
+    let newCart = [ ...cart ];
+    newCart.splice(i, 1);
+    setCart(newCart);
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
@@ -45,8 +56,8 @@ function App() {
       <Route path="/bodywork" element={<Bodywork authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
       <Route path="/driveability" element={<Driveability authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
       <Route path="/drivers" element={<Drivers authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
-      <Route path="/shop" element={<Shop authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
-      <Route path="/cart" element={<Cart updatedCart={[]}/>}></Route>
+      <Route path="/shop" element={<Shop authToken={authToken} onAuthTokenChange={setAuthToken} addToCart={addToCart} />}></Route>
+      <Route path="/cart" element={<Cart updatedCart={cart}/>}></Route>
     </Routes></>
   );
 }

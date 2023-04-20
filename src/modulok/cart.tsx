@@ -17,6 +17,10 @@ export interface Result {
 }
 
 export default class Cart extends Component<CartProps>{
+    removeall() {
+        window.alert("asd");
+    }
+
     render(): ReactNode {
         const { updatedCart } = this.props;
         console.log(updatedCart);
@@ -25,7 +29,7 @@ export default class Cart extends Component<CartProps>{
                 <div className="Cart-Container">
                     <div className="Header">
                         <h3 className="Heading">Shopping Cart</h3>
-                        <h5 className="Action">Remove all</h5>
+                        <h5 className="Action" onClick={this.removeall}>Remove all</h5>
                     </div>
                     <h1 className="emptycart">The Cart is Empty</h1>
                 </div>
@@ -36,7 +40,7 @@ export default class Cart extends Component<CartProps>{
                 <div className="Cart-Container">
                     <div className="Header">
                         <h3 className="Heading">Shopping Cart</h3>
-                        <h5 className="Action">Remove all</h5>
+                        <h5 className="Action" onClick={this.removeall}>Remove all</h5>
                     </div>
                     {updatedCart.map((item) => (
                         <div className="Cart-Items">

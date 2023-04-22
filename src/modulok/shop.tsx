@@ -5,6 +5,7 @@ import './css/shopstyle.css';
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
 import Cart from './cart';
+import { toast } from "react-toastify";
 
 interface State {
     data: Result[];
@@ -23,6 +24,7 @@ interface Result {
     team: string;
     price: number;
     quantity: number;
+    amount: number;
 }
 interface Props {
     authToken: string;
@@ -75,6 +77,19 @@ export default class Shop extends Component<Props, State> {
         this.setState({
             data: adatok,
         })
+        if(adatok.length<1){
+            toast.error('Nincs a keresésnek megfelelő elem', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+            this.filterdelete();
+        }
 
         //console.table(response);
     }
@@ -96,13 +111,22 @@ export default class Shop extends Component<Props, State> {
 
     filterdelete = async () => {
         console.log(this)
-        await this.setState({ team: '', type: '', color: '', size: '' })
+        this.setState({ team: '', type: '', color: '', size: '' })
         this.kereses();
     }
 
     addtocart(item: Result) {
         this.props.addToCart(item);
-        window.alert("added to the cart");
+        toast.success('Added to Cart', {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
     }
 
 
@@ -117,7 +141,7 @@ export default class Shop extends Component<Props, State> {
             <div className="dropdown">
                 <button className="dropbtn">Csapat</button>
                 <div className="dropdown-content">
-                    <input type="radio" id="Red-Bull" name="team" value={team} checked={this.state.team === 'Red-Bull'} onChange={(e) => this.setState({ team: e.target.value = "Red-Bull" })} />Red-Bull
+                    <input type="radio" id="Red-Bull" name="team" value={team} checked={this.state.team === 'Red-Bull'} onChange={(e) => this.setState({ team: e.target.value = "Red-Bull" })}/>Red-Bull
                     <input type="radio" id="Mercedes" name="team" value={team} checked={this.state.team === 'Mercedes'} onChange={(e) => this.setState({ team: e.target.value = "Mercedes" })} />Mercedes
                     <input type="radio" id="Ferrari" name="team" value={team} checked={this.state.team === 'Ferrari'} onChange={(e) => this.setState({ team: e.target.value = "Ferrari" })} />Ferrari
                     <input type="radio" id="McLaren" name="team" value={team} checked={this.state.team === 'McLaren'} onChange={(e) => this.setState({ team: e.target.value = "McLaren" })} />McLaren

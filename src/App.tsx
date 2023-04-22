@@ -10,15 +10,15 @@ import Logout from "./modulok/logout";
 import MainSite from "./modulok/mainsite";
 import Register from "./modulok/register";
 import Shop from "./modulok/shop";
-import Cart, { Result } from "./modulok/cart";
+import Cart, { CartItem } from "./modulok/cart";
 
 
 function App() {
   const [ authToken, setAuthToken ] = useState('');
   const [ loading, setLoading ] = useState(true);
-  const [ cart, setCart ] = useState([] as Result[]);
+  const [ cart, setCart ] = useState([] as CartItem[]);
 
-  function addToCart(r: Result) {
+  function addToCart(r: CartItem) {
     setCart([ ...cart, r ]);
   }
 

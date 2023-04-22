@@ -1,16 +1,16 @@
-import { it } from "node:test";
 import { Component, ReactNode } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './css/cartstyle.css'
 
 interface CartProps {
-    updatedCart: Result[];
+    updatedCart: CartItem[];
 }
 interface CartState {
     amount: number;
     allvalue: number
 }
-export interface Result {
+export interface CartItem {
     id: number;
     color: string;
     type: string;
@@ -18,6 +18,7 @@ export interface Result {
     team: string;
     price: number;
     quantity: number;
+    amount: number;
 }
 
 export default class Cart extends Component<CartProps, CartState>{
@@ -26,6 +27,7 @@ export default class Cart extends Component<CartProps, CartState>{
         this.state = {
             amount: 1,
             allvalue: 0,
+            
         };
         this.removeall = this.removeall.bind(this);
         this.counterplus = this.counterplus.bind(this);
@@ -34,38 +36,61 @@ export default class Cart extends Component<CartProps, CartState>{
     
     removeall() {
         if (this.props.updatedCart.length < 1) {
-            window.alert("the cart is empty")
+            toast.error('Cart is empty', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
         } else {
             this.props.updatedCart.splice(0, this.props.updatedCart.length);
             console.log(this.props.updatedCart);
-            this.render();
+            this.setState({});
         }
     }
-    counterplus() {
-        const currentItem = this.props.updatedCart.find(item => item.id === item.id); 
+    counterplus(itemId: number) {
+        const currentItem = this.props.updatedCart.find(item => item.id === itemId); 
         console.log(currentItem);
         if (currentItem) {
-            const updatedAmount = this.state.amount + 1;
+            const updatedAmount = currentItem.amount + 1;
             const currentPrice = currentItem.price * updatedAmount;
+            currentItem.amount = updatedAmount;
             this.setState({
-                amount: updatedAmount,
                 allvalue: this.state.allvalue + currentItem.price
             });
         }
     }
-    counterminus() {
-        if (this.state.amount > 1) {
-            const currentItem = this.props.updatedCart.find(item => item.id === item.id); // Assuming you have an itemId variable that holds the current item's id
-            if (currentItem) {
-                const updatedAmount = this.state.amount - 1;
-                const currentPrice = currentItem.price * updatedAmount;
-                this.setState({
-                    amount: updatedAmount,
-                    allvalue: this.state.allvalue - currentItem.price
-                });
-            }
+    counterminus(itemId: number) {
+        const currentItem = this.props.updatedCart.find(item => item.id === itemId); 
+        console.log(currentItem);
+        if (currentItem && currentItem.amount > 1) {
+            const updatedAmount = currentItem.amount - 1;
+            const currentPrice = currentItem.price * updatedAmount;
+            currentItem.amount = updatedAmount;
+            this.setState({
+                allvalue: this.state.allvalue - currentItem.price
+            });
+            console.log(this.state.allvalue)
+        }
+        
+    }
+    itemremove(itemId: number) {
+        const currentItemIndex = this.props.updatedCart.findIndex(item => item.id === itemId);
+        if (currentItemIndex > -1) {
+            const updatedCart = [...this.props.updatedCart];
+            const currentItem = updatedCart[currentItemIndex];
+            updatedCart.splice(currentItemIndex, 1);
+            this.setState({
+                allvalue: this.state.allvalue - currentItem.price
+            });
+            this.props.updatedCart.splice(currentItemIndex, 1);
         }
     }
+    
     render(): ReactNode {
         if (this.props.updatedCart.length < 1) {
             return <div className="divdiv">
@@ -73,22 +98,22 @@ export default class Cart extends Component<CartProps, CartState>{
                     <div className="Header">
                         <h3 className="Heading">Shopping Cart</h3>
                         <h5 className="Action" onClick={this.removeall}>Remove all</h5>
+                        
                     </div>
                     <h1 className="emptycart">The Cart is Empty</h1>
                 </div>
             </div>
         }
-        const currentItem = this.props.updatedCart.find(item => item.id === item.id); 
         return (
             <div className="divdiv">
-                <div className="Cart-Container">
+               <div className="Cart-Container">
                     <div className="Header">
                         <h3 className="Heading">Shopping Cart</h3>
                         <h5 className="Action" onClick={this.removeall}>Remove all</h5>
                     </div>
+                    
                     <div className="container-fluid">
                         <div className="row">
-                            
                             {this.props.updatedCart.map((item) => (
                                 <div className="Cart-Items">
 
@@ -102,13 +127,13 @@ export default class Cart extends Component<CartProps, CartState>{
 
                                     </div>
                                     <div className="counter col-sm-12">
-                                        <div className="buttons" onClick={this.counterplus}>+</div>
-                                        <div className="count">{this.state.amount}</div>
-                                        <div className="buttons" onClick={this.counterminus}>-</div>
+                                        <div className="buttons" onClick={()=>this.counterplus(item.id)}>+</div>
+                                        <div className="count">{item.amount}</div>
+                                        <div className="buttons" onClick={()=>this.counterminus(item.id)}>-</div>
                                     </div>
                                     <div className="prices col-sm-12">
                                         <div className="amount">{item.price} Ft</div>
-                                        <div className="remove"><u>Remove</u></div>
+                                        <div className="remove"><u onClick={()=>this.itemremove(item.id)}>Remove</u></div>
                                     </div>
                                 </div>
 
@@ -122,7 +147,7 @@ export default class Cart extends Component<CartProps, CartState>{
                                 <div className="Subtotal">Sub-Total</div>
                                 <div className="items">{this.props.updatedCart.length}</div>
                             </div>
-                            <div className="total-amount">{this.state.allvalue}</div>
+                            <div className="total-amount">{this.state.allvalue} Ft</div>
                         </div>
                         <button className="button">Checkout</button></div>
                 </div>

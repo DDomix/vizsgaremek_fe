@@ -11,9 +11,8 @@ interface Props {
 } 
 export default class MainSite extends Component<Props> {
     
-
+    
     render(): ReactNode {
-
         if (this.props.authToken === '') {
             return <Navigate to='/'/>
         }

@@ -33,7 +33,22 @@ export default class Cart extends Component<CartProps, CartState>{
         this.counterplus = this.counterplus.bind(this);
         this.counterminus = this.counterminus.bind(this);
     }
-    
+
+    getSubtotal() {
+        return this.props.updatedCart.reduce((acc, x) => acc + (x.price * x.amount), 0);
+    }
+
+    updateSubtotal() {
+        this.setState({
+            ...this.state,
+            allvalue: this.getSubtotal()
+        });
+    }
+
+    componentDidMount?() {
+        this.updateSubtotal();
+    }
+
     removeall() {
         if (this.props.updatedCart.length < 1) {
             toast.error('Cart is empty', {
@@ -55,25 +70,27 @@ export default class Cart extends Component<CartProps, CartState>{
     counterplus(itemId: number) {
         const currentItem = this.props.updatedCart.find(item => item.id === itemId); 
         console.log(currentItem);
-        if (currentItem) {
-            const updatedAmount = currentItem.amount + 1;
-            const currentPrice = currentItem.price * updatedAmount;
-            currentItem.amount = updatedAmount;
-            this.setState({
-                allvalue: this.state.allvalue + currentItem.price
-            });
-        }
+
+        if (!currentItem)
+            return;
+
+        const updatedAmount = currentItem.amount + 1;
+        const currentPrice = currentItem.price * updatedAmount;
+
+        currentItem.amount = updatedAmount;
+        this.updateSubtotal();
     }
     counterminus(itemId: number) {
-        const currentItem = this.props.updatedCart.find(item => item.id === itemId); 
+        const currentItem = this.props.updatedCart.find(item => item.id === itemId);
         console.log(currentItem);
+
         if (currentItem && currentItem.amount > 1) {
             const updatedAmount = currentItem.amount - 1;
             const currentPrice = currentItem.price * updatedAmount;
             currentItem.amount = updatedAmount;
-            this.setState({
-                allvalue: this.state.allvalue - currentItem.price
-            });
+
+            this.updateSubtotal();
+
             console.log(this.state.allvalue)
         }
         
@@ -118,7 +135,7 @@ export default class Cart extends Component<CartProps, CartState>{
                                 <div className="Cart-Items">
 
                                     <div className="image-box col-sm-12">
-                                        <img className="images" src={'/images/shop/' + item.team + ' ' + item.type + ' ' + item.color + '.jpg'} alt="kép"></img>
+                                        <img className="images" src={'/images/shop/' + item.team + ' ' + item.type + ' ' + item.color + '.jpg'} alt="kÃ©p"></img>
                                     </div>
                                     <div className="about col-sm-12">
                                         <h1 className="title">{item.team} {item.type}</h1><br />

@@ -146,9 +146,9 @@ export default class Shop extends Component<Props, State> {
                     <input type="radio" id="Ferrari" name="team" value={team} checked={this.state.team === 'Ferrari'} onChange={(e) => this.setState({ team: e.target.value = "Ferrari" })} />Ferrari
                     <input type="radio" id="McLaren" name="team" value={team} checked={this.state.team === 'McLaren'} onChange={(e) => this.setState({ team: e.target.value = "McLaren" })} />McLaren
                     <input type="radio" id="Alpine" name="team" value={team} checked={this.state.team === 'Alpine'} onChange={(e) => this.setState({ team: e.target.value = "Alpine" })} />Alpine
-                    <input type="radio" id="Aston Martin" name="team" value={team} checked={this.state.team === 'Aston Martin'} onChange={(e) => this.setState({ team: e.target.value = "Aston Martin" })} />Aston Martin
-                    <input type="radio" id="Alpha Tauri" name="team" value={team} checked={this.state.team === 'Alpha Tauri'} onChange={(e) => this.setState({ team: e.target.value = "Alpha Tauri" })} />Alpha Tauri
-                    <input type="radio" id="Alfa Romeo" name="team" value={team} checked={this.state.team === 'Alfa Romeo'} onChange={(e) => this.setState({ team: e.target.value = "Alfa Romeo" })} />Alfa Romeo
+                    <input type="radio" id="Aston Martin" name="team" value={team} checked={this.state.team === 'Aston-Martin'} onChange={(e) => this.setState({ team: e.target.value = "Aston-Martin" })} />Aston Martin
+                    <input type="radio" id="Alpha Tauri" name="team" value={team} checked={this.state.team === 'Alpha-Tauri'} onChange={(e) => this.setState({ team: e.target.value = "Alpha-Tauri" })} />Alpha Tauri
+                    <input type="radio" id="Alfa Romeo" name="team" value={team} checked={this.state.team === 'Alfa-Romeo'} onChange={(e) => this.setState({ team: e.target.value = "Alfa-Romeo" })} />Alfa Romeo
                     <input type="radio" id="Haas" name="team" value={team} checked={this.state.team === 'Haas'} onChange={(e) => this.setState({ team: e.target.value = "Haas" })} />Haas
                     <input type="radio" id="Williams" name="team" value={team} checked={this.state.team === 'Williams'} onChange={(e) => this.setState({ team: e.target.value = "Williams" })} />Williams
                 </div>

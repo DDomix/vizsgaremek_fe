@@ -19,7 +19,7 @@ function App() {
   const [ cart, setCart ] = useState([] as CartItem[]);
 
   function addToCart(r: CartItem) {
-    setCart([ ...cart, r ]);
+    setCart([ ...cart, {...r, amount: 1 } ]);
   }
 
   function removeFromCart(i: number) {

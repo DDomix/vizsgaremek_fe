@@ -2,6 +2,7 @@ import React, { FormEvent } from "react";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import './css/register.css';
+import { toast } from "react-toastify";
 
 interface State {
     username: string;
@@ -54,7 +55,16 @@ export default class Register extends React.Component<{}, State> {
             return;
         }
         else{
-            window.alert("successful registration");
+            toast.success('Successful Registration', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
         }
 
         this.setState({

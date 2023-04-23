@@ -50,7 +50,16 @@ export default class Register extends React.Component<{}, State> {
         if (!response.ok) {
             const responseBody = await response.json();
             if(response.status === 400) {
-                window.alert(responseBody.message)
+                (toast.warn(responseBody.message, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  }));
             }
             return;
         }

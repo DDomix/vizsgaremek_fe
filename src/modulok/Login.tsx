@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { RouterProp, withRouter } from "../withRouter";
 
 import './css/register.css'
+import { toast } from "react-toastify";
 
 interface State {
     username: string;
@@ -44,13 +45,19 @@ class Login extends Component<Props, State> {
             body: JSON.stringify(loginData),
         });
         
-        if (!response.ok) {
+        if(response.status === 401) {
             const responseBody = await response.json();
-            if(response.status === 401) {
-                window.alert(responseBody.message)
-            }
-            return;
-        }
+            (toast.warn(responseBody.message, {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            }));
+          }
         const responseBody = await response.json();
         localStorage.setItem('authToken', responseBody.token);
         

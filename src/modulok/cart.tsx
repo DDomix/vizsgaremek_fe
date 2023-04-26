@@ -32,6 +32,7 @@ export default class Cart extends Component<CartProps, CartState>{
         this.removeall = this.removeall.bind(this);
         this.counterplus = this.counterplus.bind(this);
         this.counterminus = this.counterminus.bind(this);
+        this.checkout = this.checkout.bind(this);
     }
 
     getSubtotal() {
@@ -68,7 +69,7 @@ export default class Cart extends Component<CartProps, CartState>{
         }
     }
     counterplus(itemId: number) {
-        const currentItem = this.props.updatedCart.find(item => item.id === itemId); 
+        const currentItem = this.props.updatedCart.find(item => item.id === itemId);
         console.log(currentItem);
 
         if (!currentItem)
@@ -77,7 +78,11 @@ export default class Cart extends Component<CartProps, CartState>{
         const updatedAmount = currentItem.amount + 1;
         const currentPrice = currentItem.price * updatedAmount;
 
-        currentItem.amount = updatedAmount;
+        if (updatedAmount > currentItem.quantity) {
+            currentItem.amount = currentItem.quantity;
+        } else {
+            currentItem.amount = updatedAmount;
+        }
         this.updateSubtotal();
     }
     counterminus(itemId: number) {
@@ -106,6 +111,28 @@ export default class Cart extends Component<CartProps, CartState>{
             });
             this.props.updatedCart.splice(currentItemIndex, 1);
         }
+    }
+    checkout= async ()=> {
+        console.log(this.props.updatedCart);
+        const response = await fetch('http://localhost:3000/api/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(this.props.updatedCart),
+        });
+        const responseBody = await response.json();
+        (toast.success(responseBody.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          }));
+        this.removeall();
     }
     
     render(): ReactNode {
@@ -140,8 +167,8 @@ export default class Cart extends Component<CartProps, CartState>{
                                     <div className="about col-sm-12">
                                         <h1 className="title">{item.team} {item.type}</h1><br />
                                         <h3 className="subtitle">Size: {item.size}</h3><br />
-                                        <h3 className="subtitle">Color: {item.color}</h3>
-
+                                        <h3 className="subtitle">Color: {item.color}</h3><br/>
+                                        <h3 className="subtitle">Avaiable: {item.quantity}</h3>
                                     </div>
                                     <div className="counter col-sm-12">
                                         <div className="buttons" onClick={()=>this.counterplus(item.id)}>+</div>
@@ -166,7 +193,7 @@ export default class Cart extends Component<CartProps, CartState>{
                             </div>
                             <div className="total-amount">{this.state.allvalue} Ft</div>
                         </div>
-                        <button className="button">Checkout</button></div>
+                        <button className="button" onClick={this.checkout}>Checkout</button></div>
                 </div>
             </div>
         );

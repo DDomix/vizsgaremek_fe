@@ -116,7 +116,19 @@ export default class Shop extends Component<Props, State> {
     }
 
     addtocart(item: Result) {
-        this.props.addToCart(item);
+        if(item.quantity<1){
+            toast.warn('Out of Stock', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                });
+        }else{
+           this.props.addToCart(item);
         toast.success('Added to Cart', {
             position: "top-center",
             autoClose: 1000,
@@ -126,7 +138,9 @@ export default class Shop extends Component<Props, State> {
             draggable: true,
             progress: undefined,
             theme: "colored",
-            });
+            }); 
+        }
+        
     }
 
 
@@ -186,7 +200,7 @@ export default class Shop extends Component<Props, State> {
             </div>
             <button onClick={this.kereses}>Keresés</button>
             <button onClick={this.filterdelete}>Feltételek törlése</button>
-            <Link to='/cart'><button>Cart</button></Link>
+            <Link to='/cart'><button className="cartbutton">Cart</button></Link>
             {<Row xs={1} md={4} className="g-4">
                 {this.state.data.map((item: Result) => (
                     <Col>
@@ -200,8 +214,7 @@ export default class Shop extends Component<Props, State> {
                                 </Card.Text>
                                 <Card.Text style={{ float: "right", color: "green", width: "fit-content" }}>
                                     Price: {item.price} Ft <br />
-                                    Remaining: {item.quantity} db
-
+                                    Remaining: {item.quantity === 0 ? "Out of stock" : item.quantity +" db"}
                                 </Card.Text>
                                 <Button style={{ float: "left" }} onClick={() => this.addtocart(item)}>Add To Cart</Button>
                             </Card.Body>

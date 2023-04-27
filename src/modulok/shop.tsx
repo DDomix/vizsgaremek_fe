@@ -214,7 +214,9 @@ export default class Shop extends Component<Props, State> {
                                 </Card.Text>
                                 <Card.Text style={{ float: "right", color: "green", width: "fit-content" }}>
                                     Price: {item.price} Ft <br />
-                                    Remaining: {item.quantity === 0 ? "Out of stock" : item.quantity +" db"}
+                                    {item.quantity === 0 ?
+                                        <span style={{ color: "red" }}>Out of Stock</span> :
+                                        `Remaining: ${item.quantity} db`}
                                 </Card.Text>
                                 <Button style={{ float: "left" }} onClick={() => this.addtocart(item)}>Add To Cart</Button>
                             </Card.Body>

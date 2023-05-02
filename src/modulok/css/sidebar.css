@@ -45,6 +45,9 @@
 }
 
 .menubutton {
+    position: absolute;
+    top: 0px;
+    left: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,7 +57,7 @@
     border: none;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-  }
+}
   
   .menubutton:hover {
     background-color: #f0f0f0;
@@ -67,5 +70,33 @@
   }
   
   .menubutton.active .fa-bars {
+    transform: rotate(90deg);
+  }
+  .xmenubutton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+  
+  .xmenubutton:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .fa-bars {
+    color: #000;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .xmenubutton.active .fa-bars {
     transform: rotate(90deg);
   }

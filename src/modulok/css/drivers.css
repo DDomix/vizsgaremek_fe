@@ -1,0 +1,130 @@
+.drivers{
+    background-color: lightgray;
+    max-width: 100vw;
+    min-width: 100vh;
+}
+
+.driversmenubutton {
+    position: relative;
+    top: 0px;
+    left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+  
+  .driversmenubutton:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .fa-bars {
+    color: #000;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .driversmenubutton.active .fa-bars {
+    transform: rotate(90deg);
+  }
+  .driverxmenubutton {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+  
+  .driverxmenubutton:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .fa-bars {
+    color: #000;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .driverxmenubutton.active .fa-bars {
+    transform: rotate(90deg);
+  }
+
+input[type="search"], select {
+    width: 150px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  input[type="search"]::placeholder {
+    color: #aaa;
+  }
+  
+  select option:first-child {
+    color: #aaa;
+  }
+  
+  select {
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+    color: #555;
+  }
+  
+  .drivergomb {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .drivergomb:hover {
+    background-color: #3e8e41;
+  }
+  .driversbackbutton{
+    position: absolute;
+    top: 0;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  .driversbackbutton:hover {
+    background-color: #f0f0f0;
+  }
+  

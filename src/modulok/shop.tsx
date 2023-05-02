@@ -8,7 +8,7 @@ import { Link, Navigate } from "react-router-dom";
 import Cart from './cart';
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCartShopping, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faBars, faCartShopping, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import { FaAngleUp, FaArrowUp } from "react-icons/fa";
 
@@ -149,10 +149,11 @@ export default class Shop extends Component<Props, State> {
         if (this.props.authToken === '') {
             return <Navigate to='/' />
         } return <div className="shopstyle">
-            {/* <input type="search" placeholder="Csapat" onChange={(e) => this.setState({ team: e.target.value })}/> */}
+            
+            <Link to='/f1'><button className="backbutton"><FontAwesomeIcon icon={faArrowLeft}/></button></Link>
             <button className="menubutton" onClick={this.toggleSidebar}><FontAwesomeIcon icon={faBars} /></button>
             <aside className={`sidebar ${this.state.isOpen ? 'open' : ''}`}>
-                <button className="menubutton" onClick={this.toggleSidebar}><FontAwesomeIcon icon={faXmark} /></button>
+                <button className="xmenubutton" onClick={this.toggleSidebar}><FontAwesomeIcon icon={faXmark} /></button>
                 <ul className="sidebar__menu">
                 <Sidebar>
                         <Menu>
@@ -190,8 +191,8 @@ export default class Shop extends Component<Props, State> {
                                 <MenuItem><input type="radio" id="Cap" name="team" value={type} checked={this.state.type === 'Hoodie'} onChange={(e) => this.setState({ type: e.target.value = "Hoodie" })} />Hoodie</MenuItem>
                             </SubMenu>
                         </Menu>
-                        <button onClick={this.kereses}>Keresés</button><br />
-                        <button onClick={this.filterdelete}>Feltételek törlése</button>
+                        <button className="gombok" onClick={this.kereses}>Keresés</button><br />
+                        <button className="gombok" onClick={this.filterdelete}>Feltételek törlése</button>
                     </Sidebar>;
                 </ul>
             </aside>

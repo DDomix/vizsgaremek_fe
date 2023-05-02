@@ -48,3 +48,50 @@
 .back-to-top:hover {
   transform: scale(1.1);
 }
+
+.backbutton{
+  position: relative;
+  top: 0;
+  left: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.backbutton:hover {
+  background-color: #f0f0f0;
+}
+
+.fa-bars {
+  color: #000;
+  font-size: 24px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.backbutton.active .fa-bars {
+  transform: rotate(90deg);
+}
+.gombok {
+  background-color: #4CAF50; /* Set background color */
+  color: white; /* Set font color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Set padding */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Make the button inline */
+  font-size: 16px; /* Set font size */
+  margin: 5px; /* Add margin */
+  cursor: pointer; /* Add cursor effect */
+  border-radius: 5px; /* Add rounded corners */
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+  transition: background-color 0.3s ease-in-out; /* Add a smooth transition */
+}
+
+.gombok:hover {
+  background-color: #3e8e41; /* Change background color on hover */
+}

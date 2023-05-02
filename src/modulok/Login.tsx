@@ -2,7 +2,7 @@ import { Component, FormEvent, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { RouterProp, withRouter } from "../withRouter";
 
-import './css/register.css'
+import './css/loginstyle.css'
 import { toast } from "react-toastify";
 
 interface State {

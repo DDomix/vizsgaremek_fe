@@ -4,22 +4,27 @@ import Bodywork from "./modulok/bodywork";
 import Car from "./modulok/car";
 import Driveability from "./modulok/driveability";
 import Drivers from "./modulok/drivers";
-import Engine from "./modulok/engine";
+import Engine, { EngineResult } from "./modulok/engine";
 import Login from "./modulok/Login";
 import Logout from "./modulok/logout";
 import MainSite from "./modulok/mainsite";
 import Register from "./modulok/register";
 import Shop from "./modulok/shop";
 import Cart, { CartItem } from "./modulok/cart";
+import './App.css'
 
 
 function App() {
   const [ authToken, setAuthToken ] = useState('');
   const [ loading, setLoading ] = useState(true);
   const [ cart, setCart ] = useState([] as CartItem[]);
+  const [ enginecart, setengineCart ] = useState([] as EngineResult[]);
 
   function addToCart(r: CartItem) {
     setCart([ ...cart, {...r, amount: 1 } ]);
+  }
+  function addToEngineCart(r: EngineResult) {
+    setengineCart([ ...enginecart, {...r, amount: 1 } ]);
   }
 
   function removeFromCart(i: number) {
@@ -52,7 +57,7 @@ function App() {
       <Route path="/f1" element={<MainSite authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
       <Route path="/*" element={<MainSite authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
       <Route path="/car" element={<Car authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
-      <Route path="/engine" element={<Engine authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>
+      <Route path="/engine" element={<Engine authToken={authToken} onAuthTokenChange={setAuthToken} addToEngineCart={addToEngineCart}/>}></Route>
       <Route path="/bodywork" element={<Bodywork authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
       <Route path="/driveability" element={<Driveability authToken={authToken} onAuthTokenChange={setAuthToken}/>}></Route>
       <Route path="/drivers" element={<Drivers authToken={authToken} onAuthTokenChange={setAuthToken} />}></Route>

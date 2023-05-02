@@ -88,7 +88,7 @@ export default class Register extends React.Component<{}, State> {
 
         const { username, password,email,passwordagain } = this.state;
         
-        return <div>
+        return <div className="nemtom">
             <div className="login-box">
         <h2>Register</h2>
         <form onSubmit={this.handleregistration}>

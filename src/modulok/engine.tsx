@@ -1,9 +1,10 @@
 import { Component, ReactNode } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface State {
-    data: Result[];
+    data: EngineResult[];
     leiras: string;
     motorkomponens: string;
     price: number;
@@ -11,20 +12,22 @@ interface State {
     min: number;
     max: number;
 }
-interface Result {
+export interface EngineResult {
     id: number;
     leiras: string;
     motorkomponens: string;
     price: number;
     quantity: number;
+    amount: number;
 }
-interface Token {
+interface Props {
     authToken: string;
     onAuthTokenChange: (token: string) => void;
+    addToEngineCart: (r: EngineResult) => void;
 } 
 
-export default class Engine extends Component<Token, State>{
-    constructor(props: Token) {
+export default class Engine extends Component<Props, State>{
+    constructor(props: Props) {
         super(props);
         this.state = {
             leiras: '',
@@ -58,7 +61,7 @@ export default class Engine extends Component<Token, State>{
             body: JSON.stringify(filterData),
         });
 
-        const adatok = await response.json() as Result[];
+        const adatok = await response.json() as EngineResult[];
 
 
         this.setState({
@@ -69,6 +72,18 @@ export default class Engine extends Component<Token, State>{
 
         //console.table(response);
 
+    }
+    addtocart(item: EngineResult) {
+        toast.warn('Function not avaiable', {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
     }
     componentDidMount() {
         this.kereses();
@@ -100,7 +115,7 @@ export default class Engine extends Component<Token, State>{
                                     Remaining: {item.quantity} db
 
                                 </Card.Text>
-                                <Button style={{ float: "left" }} /*onClick={this.addtocart}*/>Add To Cart</Button>
+                                <Button style={{ float: "left" }} onClick={() => this.addtocart(item)}>Add To Cart</Button>
                             </Card.Body>
                         </Card>
                     </Col>

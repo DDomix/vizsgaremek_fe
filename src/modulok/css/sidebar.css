@@ -1,0 +1,71 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    height: 100%;
+    width: 200px;
+    background-color: #f0f0f0;
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+    background-color: white;
+    overflow-y: auto;
+    /* hozzáadva */
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar__menu {
+    margin-top: 50px;
+    list-style: none;
+    padding: 0;
+}
+
+.iconrendezes {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    vertical-align: middle;
+}
+
+.sidebar__menu-item {
+    margin: 10px;
+    margin-right: auto;
+    font-size: 18px;
+}
+
+.sidebar__menu-item a {
+    color: #333;
+    text-decoration: none;
+}
+
+.sidebar__menu-item a:hover {
+    color: #000;
+}
+
+.menubutton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .menubutton:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .fa-bars {
+    color: #000;
+    font-size: 24px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .menubutton.active .fa-bars {
+    transform: rotate(90deg);
+  }

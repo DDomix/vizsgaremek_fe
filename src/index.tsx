@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { ProSidebarProvider } from 'react-pro-sidebar';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,8 +13,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+    <ProSidebarProvider>
       <ToastContainer/>
-      <App />
+      <App /></ProSidebarProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

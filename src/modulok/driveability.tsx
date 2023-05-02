@@ -1,6 +1,7 @@
 import { Component, ReactNode } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface State {
     data: Result[];
@@ -63,7 +64,18 @@ export default class Driveability extends Component<Token, State>{
     componentDidMount() {
         this.kereses();
     }
-
+    addtocart() {
+        toast.warn('Function not avaiable', {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
     render(): ReactNode {
         /*const { min, max } = this.state;*/
         if (this.props.authToken === '') {
@@ -90,7 +102,7 @@ export default class Driveability extends Component<Token, State>{
                                     Remaining: {item.quantity} db
 
                                 </Card.Text>
-                                <Button style={{ float: "left" }} /*onClick={this.addtocart}*/>Add To Cart</Button>
+                                <Button style={{ float: "left" }} onClick={this.addtocart}>Add To Cart</Button>
                             </Card.Body>
                         </Card>
                     </Col>

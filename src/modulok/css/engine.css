@@ -1,0 +1,35 @@
+.enginecontent{
+    background-color: lightgray;
+    min-width: 100vw;
+    max-width: min-content;
+    min-height: 100vh;
+    max-height: fit-content;
+}
+.enginebackbutton{
+    position: relative;
+    top: 0;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  .enginebackbutton:hover {
+    background-color: #f0f0f0;
+  }
+  .kereses{
+    position: absolute;
+    top: 0;
+    left: 50px;
+  }
+  .keresesgomb{
+    position: absolute;
+    left : 220px;
+    top: 10px;
+  }
+

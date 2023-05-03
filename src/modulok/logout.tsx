@@ -2,6 +2,8 @@ import { Component, ReactNode } from "react";
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import './css/profilestyle.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket, faUser } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
     authToken: string;
@@ -45,16 +47,7 @@ export default class Logout extends Component<Props> {
     render(): ReactNode {
 
         if (this.props.authToken !== '') {
-            return <Dropdown className="profile">
-                <Dropdown.Toggle>
-                    
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                    <Dropdown.Item>Profile</Dropdown.Item>
-                    <Dropdown.Item><Link to='/'><button onClick={this.handleLogout} className="logoutbutton">Logout</button></Link></Dropdown.Item>
-                </Dropdown.Menu>
-            </Dropdown>
+            return <Link to='/'><button onClick={this.handleLogout} className="logoutbutton"><FontAwesomeIcon icon={faArrowRightFromBracket} /></button></Link>
         }
 
     }

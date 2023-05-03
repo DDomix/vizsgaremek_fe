@@ -1,7 +1,10 @@
 import { Component, ReactNode } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import './css/engine.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 interface State {
     data: EngineResult[];
@@ -94,12 +97,10 @@ export default class Engine extends Component<Props, State>{
         if (this.props.authToken === '') {
             return <Navigate to='/'/>
         }
-        return <div>
-            {/* <input type="number" placeholder="MIN" onChange={(e) => this.setState({ min: e.target.valueAsNumber })} /> */}
-            {/* <input type="number" placeholder="MAX" onChange={(e) => this.setState({ min: e.target.valueAsNumber })} /> */}
-            <input type="search" placeholder="Keresés" onChange={(e) => this.setState({ motorkomponens: e.target.value })} />
-
-            <button onClick={this.kereses}>Keresés</button>
+        return <div className="enginecontent">
+            <Link to='/f1'><button className="enginebackbutton"><FontAwesomeIcon icon={faArrowLeft}/></button></Link>
+            <input className="kereses" type="search" placeholder="Keresés" onChange={(e) => this.setState({ motorkomponens: e.target.value })} />
+            <button className="keresesgomb" onClick={this.kereses}>Keresés</button>
             {<Row xs={1} md={3} className="g-4">
                 {this.state.data.map((item) => (
                     <Col>

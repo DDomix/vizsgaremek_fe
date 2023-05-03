@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import './css/car.css';
 import { Link, Navigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 interface Token {
     authToken: string;
@@ -15,6 +17,7 @@ export default class Car extends Component<Token> {
             return <Navigate to='/'/>
         }
         return <div className="carbg">
+            <Link to='/f1'><button className="carbackbutton"><FontAwesomeIcon icon={faArrowLeft}/></button></Link>
             <section className="wrapper">
                 <div className="container">
                     <div className="row">

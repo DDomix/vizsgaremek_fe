@@ -97,15 +97,16 @@ export default class Engine extends Component<Props, State>{
         if (this.props.authToken === '') {
             return <Navigate to='/'/>
         }
-        return <div className="enginecontent">
-            <Link to='/f1'><button className="enginebackbutton"><FontAwesomeIcon icon={faArrowLeft}/></button></Link>
+        return <div className="carscontent">
+            <Link to='/car'><button className="enginebackbutton"><FontAwesomeIcon icon={faArrowLeft}/></button></Link>
             <input className="kereses" type="search" placeholder="Keresés" onChange={(e) => this.setState({ motorkomponens: e.target.value })} />
             <button className="keresesgomb" onClick={this.kereses}>Keresés</button>
             {<Row xs={1} md={3} className="g-4">
                 {this.state.data.map((item) => (
                     <Col>
                         <Card>
-                            <Card.Img variant="top" /*src={'/images/shop/'+item.team+ ' '+item.color+ '.jpg'}*/ />
+                            <Card.Img variant="top" src={'/images/car/engine/'+item.motorkomponens+'.jpg'} />
+                            
                             <Card.Body>
                                 <Card.Title>{item.motorkomponens}</Card.Title>
                                 <Card.Text>

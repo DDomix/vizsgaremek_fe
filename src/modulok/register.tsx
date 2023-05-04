@@ -89,22 +89,22 @@ export default class Register extends React.Component<{}, State> {
         const { username, password,email,passwordagain } = this.state;
         
         return <div className="nemtom">
-            <div className="login-box">
+            <div className="register-box">
         <h2>Register</h2>
         <form onSubmit={this.handleregistration}>
-            <div className="user-box">
+            <div className="userr-box">
                 <input type="text" name="" required value={username} onChange={(e) => this.setState({ username: e.target.value })}/>
                 <label>Username</label>
             </div>
-            <div className="user-box">
+            <div className="userr-box">
                 <input type="email" name="" required value={email} onChange={(e) => this.setState({ email: e.target.value })}/>
                 <label>Email address</label>
             </div>
-            <div className="user-box">
+            <div className="userr-box">
                 <input type="password" name="" required value={password} onChange={(e) => this.setState({ password: e.target.value })} />
                 <label>Password</label>
             </div>
-            <div className="user-box">
+            <div className="userr-box">
                 <input type="password" name="" required value={passwordagain} onChange={(e) => this.setState({ passwordagain: e.target.value })} />
                 <label>Password again</label>
             </div>

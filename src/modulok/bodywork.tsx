@@ -1,7 +1,10 @@
 import { Component, ReactNode } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import './css/engine.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 interface State {
     data: Result[];
@@ -82,17 +85,15 @@ export default class Bodywork extends Component<Token, State>{
         if (this.props.authToken === '') {
             return <Navigate to='/'/>
         }
-        return <div>
-            {/* <input type="number" placeholder="MIN" onChange={(e) => this.setState({ min: e.target.valueAsNumber })} /> */}
-            {/* <input type="number" placeholder="MAX" onChange={(e) => this.setState({ min: e.target.valueAsNumber })} /> */}
-            <input type="search" placeholder="Keresés" onChange={(e) => this.setState({ kasznikomponens: e.target.value })} />
-
-            <button onClick={this.kereses}>Keresés</button>
+        return <div className="carscontent">
+            <Link to='/car'><button className="enginebackbutton"><FontAwesomeIcon icon={faArrowLeft}/></button></Link>
+            <input className="kereses" type="search" placeholder="Keresés" onChange={(e) => this.setState({ kasznikomponens: e.target.value })} />
+            <button className="keresesgomb" onClick={this.kereses}>Keresés</button>
             {<Row xs={1} md={4} className="g-4">
                 {this.state.data.map((item) => (
                     <Col>
                         <Card>
-                            <Card.Img variant="top" /*src={'/images/shop/'+item.team+ ' '+item.color+ '.jpg'}*/ />
+                            <Card.Img variant="top" src={'/images/car/bodywork/'+item.kasznikomponens+'.jpg'} />
                             <Card.Body>
                                 <Card.Title>{item.kasznikomponens}</Card.Title>
                                 <Card.Text>

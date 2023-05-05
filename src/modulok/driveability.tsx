@@ -68,16 +68,16 @@ export default class Driveability extends Component<Token, State>{
         this.kereses();
     }
     addtocart() {
-        toast.warn('Function not avaiable', {
+        toast.info('In order to avoid car compatibility errors, please contact us by e-mail at papp.dominik1010@gmail.com', {
             position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: true,
+            autoClose: false,
+            hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
-        });
+            });
     }
     render(): ReactNode {
         /*const { min, max } = this.state;*/
@@ -92,7 +92,7 @@ export default class Driveability extends Component<Token, State>{
                 {this.state.data.map((item) => (
                     <Col>
                         <Card>
-                            <Card.Img variant="top" /*src={'/images/shop/'+item.team+ ' '+item.color+ '.jpg'}*/ />
+                            <Card.Img variant="top" src={'/images/car/driveability/'+item.vezerloegysegkomponens+'.jpg'} />
                             <Card.Body>
                                 <Card.Title>{item.vezerloegysegkomponens}</Card.Title>
                                 <Card.Text>

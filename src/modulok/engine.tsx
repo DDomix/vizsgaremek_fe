@@ -77,16 +77,16 @@ export default class Engine extends Component<Props, State>{
 
     }
     addtocart(item: EngineResult) {
-        toast.warn('Function not avaiable', {
+        toast.info('In order to avoid car compatibility errors, please contact us by e-mail at papp.dominik1010@gmail.com', {
             position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: true,
+            autoClose: false,
+            hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
-        });
+            });
     }
     componentDidMount() {
         this.kereses();
